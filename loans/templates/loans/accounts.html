@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Account Settings - MOROCCO LOANS{% endblock %}
+{% block page_title %}Account settings{% endblock %}
+{% block page_description %}Keep your username, email, and location up to date to maintain access to your loan account.{% endblock %}
+{% block content %}
+    <div class="section-card">
+        {% if success_message %}
+            <div class="form-errors" style="background: #d1fae5; border-color: #a7f3d0; color: #065f46;">
+                {{ success_message }}
+            </div>
+        {% endif %}
+        <form method="post" class="form-grid">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button class="button" type="submit">Save Changes</button>
+        </form>
+        <div class="section-card" style="margin-top: 24px;">
+            <h2 class="section-title">Account links</h2>
+            <div class="hero-actions">
+                <a class="button secondary" href="{% url 'password_change' %}">Change password</a>
+                <a class="button" href="{% url 'dashboard' %}">Back to dashboard</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

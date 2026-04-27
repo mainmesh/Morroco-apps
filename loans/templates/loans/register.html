@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Register - MOROCCO LOANS{% endblock %}
+{% block body_class %}no-sidebar{% endblock %}
+{% block page_title %}Create your loan account{% endblock %}
+{% block page_description %}Set up your profile and start applying for loans with secure account controls.{% endblock %}
+{% block content %}
+    <div class="section-card">
+        {% if form.errors %}
+            <div class="form-errors">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form method="post" class="form-grid">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button" type="submit">Register</button>
+        </form>
+        <p class="form-help">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+    </div>
+{% endblock %}

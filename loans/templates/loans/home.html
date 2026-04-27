@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Home - MOROCCO LOANS{% endblock %}
+{% block page_title %}A better way to borrow in Morocco{% endblock %}
+{% block page_description %}Fast, transparent lending with a modern dashboard, mobile-ready design, and secure account controls.{% endblock %}
+{% block content %}
+    <section class="section-card hero-grid">
+        <div>
+            <p class="section-subtitle">Trusted, local loan support</p>
+            <h2 class="section-title">Easy access to working capital with clear fees and smart tracking.</h2>
+            <p>Apply online, follow your repayment schedule, and manage your profile from one place.</p>
+            <div class="hero-actions">
+                {% if user.is_authenticated %}
+                    <a class="button" href="{% url 'dashboard' %}">Dashboard</a>
+                {% else %}
+                    <a class="button" href="{% url 'login' %}">Login</a>
+                {% endif %}
+                <a class="button secondary" href="{% url 'register' %}">Create Account</a>
+            </div>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Fast approval</h3>
+                <p>See loan options and apply quickly without unnecessary delays.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Clear fees</h3>
+                <p>Every amount shows its deposit fee up front so you always know what you pay.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Responsive design</h3>
+                <p>The platform works smoothly on mobile, tablet, and desktop devices.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Secure accounts</h3>
+                <p>Update your profile, password, and location anytime from settings.</p>
+            </div>
+        </div>
+    </section>
+    <section class="section-card" id="services">
+        <h2 class="section-title">Loan options</h2>
+        <div class="feature-grid">
+            {% for option in loan_options %}
+                <div class="feature-card">
+                    <h3>{{ option.amount }} MAD</h3>
+                    <p>Deposit fee: {{ option.fee }} MAD</p>
+                    {% if user.is_authenticated %}
+                        <a class="button secondary" href="{% url 'apply_loan' option.amount %}">Apply now</a>
+                    {% else %}
+                        <a class="button secondary" href="{% url 'register' %}">Register to apply</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

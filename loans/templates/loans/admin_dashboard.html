@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MOROCCO LOANS</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #f5f7fa 0%, #c3e7dc 100%); }
+        .top-header { background-color: #006233; color: white; padding: 5px 20px; text-align: center; font-size: 14px; }
+        .top-header a { color: #ffc72c; text-decoration: none; margin: 0 10px; }
+        .top-header a:hover { text-decoration: underline; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .sidebar { width: 250px; background: linear-gradient(180deg, #006233 0%, #c1272d 100%); color: white; padding: 20px; box-sizing: border-box; position: fixed; height: 100%; overflow-y: auto; box-shadow: 2px 0 10px rgba(0,0,0,0.1); transition: width 0.3s ease; }
+        .sidebar:hover { width: 260px; }
+        .sidebar h2 { margin-top: 0; color: #ffc72c; font-size: 1.5em; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .sidebar a { color: white; text-decoration: none; display: block; padding: 15px 0; border-radius: 5px; transition: all 0.3s ease; position: relative; }
+        .sidebar a:hover { background-color: rgba(255, 199, 44, 0.2); transform: translateX(10px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .main-content { margin-left: 250px; flex: 1; display: flex; flex-direction: column; }
+        header { background: linear-gradient(90deg, #c1272d 0%, #006233 50%, #ffc72c 100%); color: white; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 28px; font-weight: bold; color: #ffc72c; display: flex; align-items: center; animation: slideInLeft 0.8s ease; background: linear-gradient(45deg, #c1272d, #006233); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        @keyframes slideInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .logo svg { height: 50px; margin-right: 15px; }
+        .container { max-width: 1200px; margin: 50px auto; padding: 30px; background: rgba(255, 255, 255, 0.95); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); flex: 1; backdrop-filter: blur(10px); animation: slideUp 0.8s ease; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .stats { display: flex; justify-content: space-around; flex-wrap: wrap; margin-bottom: 30px; }
+        .stat-card { width: 28%; margin: 10px 1%; padding: 25px; background: linear-gradient(145deg, #ffffff, #f0f0f0); border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .stat-card h3 { margin: 0; color: #c1272d; font-size: 2em; }
+        .stat-card p { color: #333; font-size: 1.2em; }
+        .admin-links { list-style: none; padding: 0; display: flex; justify-content: center; flex-wrap: wrap; }
+        .admin-links li { margin: 10px; }
+        .admin-links a { background: linear-gradient(45deg, #006233, #66b23d, #ffc72c); color: white; padding: 15px 25px; border: none; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 100, 51, 0.25); display: inline-block; }
+        .admin-links a:hover { background: linear-gradient(45deg, #004f1f, #4f9d36, #d8b232); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 100, 51, 0.35); }
+        footer { background: linear-gradient(90deg, #343a40 0%, #006233 100%); color: white; text-align: center; padding: 20px; margin-top: auto; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+        .footer-content { display: flex; justify-content: space-around; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+        .footer-section { flex: 1; min-width: 200px; margin: 10px; }
+        .footer-section h3 { color: #ffc72c; margin-bottom: 10px; }
+        .footer-section a { color: white; text-decoration: none; display: block; margin: 5px 0; }
+        .footer-section a:hover { color: #ffc72c; }
+        .social-links a { display: inline-block; margin: 0 10px; font-size: 20px; }
+        @media (max-width: 1024px) { .sidebar { width: 200px; } .main-content { margin-left: 200px; } .container { margin: 15px auto; padding: 20px; } .stat-card { width: 45%; } .footer-content { flex-direction: column; } }
+        @media (max-width: 768px) { .sidebar { width: 100%; position: static; height: auto; } .main-content { margin-left: 0; } .container { margin: 10px auto; padding: 15px; } .stat-card { width: 100%; } .logo { font-size: 24px; } .logo svg { height: 40px; } .top-header { font-size: 12px; } .footer-content { text-align: left; } }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Menu</h2>
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        <a href="{% url 'admin_users' %}">Users</a>
+        <a href="{% url 'admin_loans' %}">Loans</a>
+        <a href="{% url 'admin_repayments' %}">Repayments</a>
+        <a href="{% url 'accounts' %}">Account Settings</a>
+        <a href="{% url 'home' %}">Website Home</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    <div class="main-content">
+        <div class="top-header">
+            <span>Call Us: +212 6XX XXX XXX | Email: <a href="mailto:info@moroccoloans.ma">info@moroccoloans.ma</a> | Mon-Fri: 9AM-6PM</span>
+        </div>
+        <header>
+            <div class="logo">
+                <svg width="50" height="50" viewBox="0 0 64 64">
+                    <rect width="64" height="64" rx="16" fill="#006233"/>
+                    <path d="M18 24 L32 12 L46 24 L46 44 L32 56 L18 44 Z" fill="#ffc72c"/>
+                    <path d="M24 30 L32 22 L40 30 L40 44 L32 52 L24 44 Z" fill="#fff" opacity="0.75"/>
+                    <text x="32" y="39" text-anchor="middle" font-size="16" fill="#c1272d" font-weight="800">ML</text>
+                </svg>
+                MOROCCO LOANS - Admin Panel
+            </div>
+        </header>
+        <div class="container">
+            <h2>Admin Dashboard</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>{{ user_count }}</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ loan_count }}</h3>
+                    <p>Total Loans</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ repayment_count }}</h3>
+                    <p>Total Repayments</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ total_deposited }} MAD</h3>
+                    <p>Total Deposited</p>
+                </div>
+            </div>
+            <div class="charts" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 30px;">
+                <div style="width: 45%; margin: 10px;">
+                    <h3 style="color: #006233;">New Users Over Time</h3>
+                    <canvas id="newUsersChart"></canvas>
+                </div>
+                <div style="width: 45%; margin: 10px;">
+                    <h3 style="color: #006233;">Deposits Over Time</h3>
+                    <canvas id="depositsChart"></canvas>
+                </div>
+                <div style="width: 45%; margin: 10px;">
+                    <h3 style="color: #006233;">Loan Status Distribution</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+            <ul class="admin-links">
+                <li><a href="{% url 'admin_users' %}">Manage Users</a></li>
+                <li><a href="{% url 'admin_loans' %}">Manage Loans</a></li>
+                <li><a href="{% url 'admin_repayments' %}">Manage Repayments</a></li>
+            </ul>
+        </div>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'accounts' %}">Account Settings</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Phone: +212 6XX XXX XXX</p>
+                    <p>Email: info@moroccoloans.ma</p>
+                    <p>Address: Morocco</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">📘 Facebook</a>
+                        <a href="#">🐦 Twitter</a>
+                        <a href="#">📷 Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <p>&copy; 2026 MOROCCO LOANS. All fees are in Moroccan Dirhams (MAD). Fees are deposited to our secure till upon application.</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // New Users Chart
+        const ctx1 = document.getElementById('newUsersChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: {{ new_users_labels|safe }},
+                datasets: [{
+                    label: 'New Users',
+                    data: {{ new_users_counts|safe }},
+                    borderColor: '#006233',
+                    backgroundColor: 'rgba(0, 98, 51, 0.1)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Deposits Chart
+        const ctx2 = document.getElementById('depositsChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: {{ deposits_labels|safe }},
+                datasets: [{
+                    label: 'Deposits (MAD)',
+                    data: {{ deposits_totals|safe }},
+                    borderColor: '#c1272d',
+                    backgroundColor: 'rgba(193, 39, 45, 0.1)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Status Chart
+        const ctx3 = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: {{ status_labels|safe }},
+                datasets: [{
+                    data: {{ status_counts|safe }},
+                    backgroundColor: ['#006233', '#c1272d', '#ffc72c', '#66b23d', '#004f1f'],
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+        });
+    </script>
+</body>
+</html>

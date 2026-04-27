@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Apply for Loan - MOROCCO LOANS{% endblock %}
+{% block page_title %}Confirm your loan fee{% endblock %}
+{% block page_description %}Review the selected loan amount and pay the deposit fee to move forward.{% endblock %}
+{% block content %}
+    <div class="section-card">
+        <h2 class="section-title">Pay the deposit fee</h2>
+        <p>You selected a loan amount of <strong>{{ amount }} MAD</strong>.</p>
+        <p class="section-subtitle">Deposit fee to pay: <strong>{{ fee }} MAD</strong></p>
+        <p class="form-help">This fee must be paid to confirm your loan request. After payment, your loan application will be submitted with the selected amount.</p>
+        <form method="post" class="form-grid">
+            {% csrf_token %}
+            <input type="hidden" name="fee" value="{{ fee }}">
+            <button class="button" type="submit">Pay fee and submit application</button>
+        </form>
+    </div>
+{% endblock %}

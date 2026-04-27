@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - MOROCCO LOANS{% endblock %}
+{% block page_title %}Your dashboard{% endblock %}
+{% block page_description %}Track active loans, upcoming repayments, and your account summary in one place.{% endblock %}
+{% block content %}
+    <div class="section-card">
+        <h2 class="section-title">Active loans</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr>
+                        <td>{{ loan.id }}</td>
+                        <td>{{ loan.amount }} MAD</td>
+                        <td><span class="status-pill">{{ loan.get_status_display }}</span></td>
+                        <td>{{ loan.created_at }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No loans found yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section-card">
+        <h2 class="section-title">Upcoming repayments</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Loan ID</th>
+                        <th>Amount</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for repayment in repayments %}
+                    <tr>
+                        <td>{{ repayment.loan.id }}</td>
+                        <td>{{ repayment.amount }} MAD</td>
+                        <td>{{ repayment.due_date }}</td>
+                        <td>{{ repayment.get_status_display }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No upcoming repayments.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <a class="button secondary" href="{% url 'home' %}">Apply for a new loan</a>
+        </div>
+    </div>
+{% endblock %}
